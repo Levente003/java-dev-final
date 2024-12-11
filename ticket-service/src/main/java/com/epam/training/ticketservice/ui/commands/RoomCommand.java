@@ -1,6 +1,5 @@
 package com.epam.training.ticketservice.ui.commands;
 
-import com.epam.training.ticketservice.core.movie.model.MovieDto;
 import com.epam.training.ticketservice.core.room.RoomService;
 import com.epam.training.ticketservice.core.room.model.RoomDto;
 import com.epam.training.ticketservice.core.user.UserService;
@@ -51,7 +50,7 @@ public class RoomCommand {
         return "Room deleted: " + name;
     }
 
-    private Availability isAvailable() {
+    private Availability isAdmin() {
         Optional<UserDto> user = userService.describe();
         return user.isPresent() && user.get().role() == User.Role.ADMIN
                 ? Availability.available()

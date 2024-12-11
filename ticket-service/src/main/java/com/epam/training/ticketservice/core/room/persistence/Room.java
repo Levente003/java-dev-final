@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,9 +13,6 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Room {
     @Id
-    @GeneratedValue
-    private Long id;
-
     private String name;
     private int rows;
     private int cols;

@@ -64,7 +64,7 @@ public class MovieCommand {
         return sb.toString().trim();
     }
 
-    private Availability isAvailable() {
+    private Availability isAdmin() {
         Optional<UserDto> user = userService.describe();
         return user.isPresent() && user.get().role() == User.Role.ADMIN
                 ? Availability.available()
