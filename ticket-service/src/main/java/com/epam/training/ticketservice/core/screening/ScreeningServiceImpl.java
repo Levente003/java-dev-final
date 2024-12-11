@@ -26,7 +26,9 @@ public class ScreeningServiceImpl implements ScreeningService {
     @Override
     public List<ScreeningDto> listScreenings() {
         return screeningRepo.findAll().stream()
-                .map(screening -> new ScreeningDto(movieRepo.findByTitle(screening.getMovieTitle()).get(), roomRepo.findByName(screening.getRoomName()).get(), screening.getStartTime()))
+                .map(screening -> new ScreeningDto(movieRepo.findByTitle(screening.getMovieTitle()).get(),
+                        roomRepo.findByName(screening.getRoomName()).get(),
+                        screening.getStartTime()))
                 .collect(Collectors.toList());
     }
 
@@ -48,7 +50,8 @@ public class ScreeningServiceImpl implements ScreeningService {
 
     @Override
     public void deleteScreening(String movieTitle, String roomName, LocalDateTime startTime) {
-        Optional<Screening> screening = screeningRepo.findByMovieTitleAndRoomNameAndStartTime(movieTitle, roomName, startTime);
+        Optional<Screening> screening =
+                screeningRepo.findByMovieTitleAndRoomNameAndStartTime(movieTitle, roomName, startTime);
         screening.ifPresent(screeningRepo::delete);
     }
 }
