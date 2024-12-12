@@ -23,4 +23,9 @@ public class Screening {
     private LocalDateTime startTime;
 
 
+    public Screening(String movieTitle, String roomName, LocalDateTime startTime) {
+        this.movieTitle = movieTitle;
+        this.roomName = roomName;
+        this.startTime = startTime;
+    }
 }

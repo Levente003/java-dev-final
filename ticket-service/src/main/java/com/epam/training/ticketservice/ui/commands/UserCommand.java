@@ -35,14 +35,4 @@ public class UserCommand {
                         : "Signed in with account '" + userDto + "'")
                 .orElse("You are not signed in");
     }
-
-    @ShellMethod(key = "user register", value = "User registration")
-    public String registerUser(String userName, String password) {
-        try {
-            userService.registerUser(userName, password);
-            return "Registration was successful!";
-        } catch (Exception e) {
-            return "Registration failed!";
-        }
-    }
 }

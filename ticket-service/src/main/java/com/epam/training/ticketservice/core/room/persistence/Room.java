@@ -1,5 +1,6 @@
 package com.epam.training.ticketservice.core.room.persistence;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 @Table(name = "Rooms")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Room {
     @Id
     private String name;
