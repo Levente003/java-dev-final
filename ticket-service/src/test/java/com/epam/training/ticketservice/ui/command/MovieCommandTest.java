@@ -40,4 +40,5 @@ public class MovieCommandTest {
         assertEquals("Test Movie (animation, 90 minutes)", result);
         verify(movieService).listMovies();
     }
+
 }

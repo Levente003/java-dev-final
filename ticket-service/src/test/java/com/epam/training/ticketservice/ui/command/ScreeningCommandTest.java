@@ -8,6 +8,8 @@ import com.epam.training.ticketservice.core.room.persistence.Room;
 import com.epam.training.ticketservice.core.screening.ScreeningService;
 import com.epam.training.ticketservice.core.screening.ScreeningServiceImpl;
 import com.epam.training.ticketservice.core.screening.model.ScreeningDto;
+import com.epam.training.ticketservice.core.user.UserService;
+import com.epam.training.ticketservice.core.user.UserServiceImpl;
 import com.epam.training.ticketservice.ui.commands.ScreeningCommand;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +40,8 @@ public class ScreeningCommandTest {
 
     ScreeningService screeningService = mock(ScreeningServiceImpl.class);
     MovieService movieService = mock(MovieServiceImpl.class);
-    ScreeningCommand underTest = new ScreeningCommand(screeningService,movieService);
+    UserService userService = mock(UserServiceImpl.class);
+    ScreeningCommand underTest = new ScreeningCommand(screeningService,userService,movieService);
 
     @Test
     void listScreeningsShouldShowNoScreeningsInitialy() {

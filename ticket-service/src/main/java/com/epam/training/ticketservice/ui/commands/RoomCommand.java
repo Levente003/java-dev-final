@@ -20,6 +20,7 @@ public class RoomCommand {
     private final RoomService roomService;
     private final UserService userService;
 
+    @ShellMethodAvailability("isAdmin")
     @ShellMethod(value = "Create a new room", key = "create room")
     public String createRoom(String name, int rows, int columns) {
         roomService.createRoom(name, rows, columns);
@@ -44,6 +45,7 @@ public class RoomCommand {
         return "Room updated: " + name;
     }
 
+    @ShellMethodAvailability("isAdmin")
     @ShellMethod(value = "Delete a room",key = "delete room")
     public String deleteRoom(String name) {
         roomService.deleteRoom(name);

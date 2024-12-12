@@ -3,22 +3,30 @@ package com.epam.training.ticketservice.ui.commands;
 import com.epam.training.ticketservice.core.movie.MovieService;
 import com.epam.training.ticketservice.core.screening.ScreeningService;
 import com.epam.training.ticketservice.core.screening.model.ScreeningDto;
+import com.epam.training.ticketservice.core.user.UserService;
+import com.epam.training.ticketservice.core.user.model.UserDto;
+import com.epam.training.ticketservice.core.user.persistence.User;
 import lombok.AllArgsConstructor;
+import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.standard.ShellMethodAvailability;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @ShellComponent
 @AllArgsConstructor
 public class ScreeningCommand {
     private final ScreeningService screeningService;
+    private final UserService userService;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final MovieService movieService;
 
+    @ShellMethodAvailability("isAdmin")
     @ShellMethod(value = "Create a new screening", key = "create screening")
     public String createScreening(String movieTitle, String roomName, String startTime) {
         LocalDateTime startDateTime = LocalDateTime.parse(startTime, formatter);
@@ -71,10 +79,18 @@ public class ScreeningCommand {
         return sb.toString().trim();
     }
 
+    @ShellMethodAvailability("isAdmin")
     @ShellMethod(value = "Delete a screening", key = "delete screening")
     public String deleteScreening(String movieTitle, String roomName, String startTime) {
         LocalDateTime startDateTime = LocalDateTime.parse(startTime, formatter);
         screeningService.deleteScreening(movieTitle, roomName, startDateTime);
         return "Screening deleted: " + movieTitle + " in room " + roomName + " at " + startTime;
+    }
+
+    private Availability isAdmin() {
+        Optional<UserDto> user = userService.describe();
+        return user.isPresent() && user.get().role() == User.Role.ADMIN
+                ? Availability.available()
+                : Availability.unavailable("You are not an admin!");
     }
 }

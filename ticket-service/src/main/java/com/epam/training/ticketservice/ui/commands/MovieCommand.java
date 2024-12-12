@@ -21,7 +21,7 @@ public class MovieCommand {
     private final MovieService movieService;
     private final UserService userService;
 
-
+    @ShellMethodAvailability("isAdmin")
     @ShellMethod(value = "Create a new movie. Usage: create-movie <title> <genre> <length>", key = "create movie")
     public String createMovie(String title, String genre, int length) {
         try {
@@ -43,6 +43,7 @@ public class MovieCommand {
         }
     }
 
+    @ShellMethodAvailability("isAdmin")
     @ShellMethod(value = "Delete a movie. Usage: delete-movie <title>", key = "delete movie")
     public String deleteMovie(String title) {
         try {
